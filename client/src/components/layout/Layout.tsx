@@ -107,21 +107,21 @@ export function Layout({ children }: LayoutProps) {
       <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
         <p className="px-4 text-xs font-medium text-muted-foreground mb-2 mt-2 uppercase tracking-wider">Menu Principal</p>
         {navItems.map((item) => (
-          <Link key={item.href} href={item.href}>
-            <a
-              className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 font-outfit group relative overflow-hidden",
-                location === item.href
-                  ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
-                  : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
-              )}
-            >
-              {location === item.href && (
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-30" />
-              )}
-              <item.icon className={cn("w-5 h-5 transition-transform group-hover:scale-110", location === item.href ? "text-white" : "text-muted-foreground group-hover:text-foreground")} />
-              {item.label}
-            </a>
+          <Link 
+            key={item.href} 
+            href={item.href}
+            className={cn(
+              "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 font-outfit group relative overflow-hidden mb-1",
+              location === item.href
+                ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
+            )}
+          >
+            {location === item.href && (
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-30" />
+            )}
+            <item.icon className={cn("w-5 h-5 transition-transform group-hover:scale-110", location === item.href ? "text-white" : "text-muted-foreground group-hover:text-foreground")} />
+            {item.label}
           </Link>
         ))}
       </nav>
