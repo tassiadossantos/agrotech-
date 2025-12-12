@@ -11,11 +11,15 @@ import {
   Settings, 
   Menu, 
   X,
-  Bell
+  Bell,
+  MapPin
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAppStore } from "@/lib/store";
+import { FARMS_DATA } from "@/lib/mock-data";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -33,6 +37,8 @@ const navItems = [
 export function Layout({ children }: LayoutProps) {
   const [location] = useLocation();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { selectedFarmId, setSelectedFarmId } = useAppStore();
+  const selectedFarm = FARMS_DATA.find(f => f.id === selectedFarmId) || FARMS_DATA[0];
 
   const NavContent = () => (
     <div className="flex flex-col h-full bg-sidebar text-sidebar-foreground">
@@ -45,6 +51,26 @@ export function Layout({ children }: LayoutProps) {
             <h1 className="font-outfit font-bold text-xl tracking-tight">AgroTech</h1>
             <p className="text-xs text-muted-foreground font-mono">v2.4.0</p>
           </div>
+        </div>
+        
+        <div className="mt-6">
+           <Select value={selectedFarmId} onValueChange={setSelectedFarmId}>
+            <SelectTrigger className="w-full bg-sidebar-accent/50 border-sidebar-border text-left">
+              <SelectValue placeholder="Selecione a fazenda" />
+            </SelectTrigger>
+            <SelectContent>
+              {FARMS_DATA.map((farm) => (
+                <SelectItem key={farm.id} value={farm.id} className="cursor-pointer">
+                  <div className="flex flex-col items-start">
+                    <span className="font-medium">{farm.name}</span>
+                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                       <MapPin className="w-3 h-3" /> {farm.location}
+                    </span>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -74,7 +100,7 @@ export function Layout({ children }: LayoutProps) {
           </Avatar>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate font-outfit">João da Silva</p>
-            <p className="text-xs text-muted-foreground truncate font-mono">Fazenda Boa Vista</p>
+            <p className="text-xs text-muted-foreground truncate font-mono">{selectedFarm.name}</p>
           </div>
           <Button variant="ghost" size="icon" className="h-8 w-8">
             <Settings className="w-4 h-4" />

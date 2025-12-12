@@ -8,8 +8,13 @@ import { AgroChat } from "@/components/chat/AgroChat";
 import { Button } from "@/components/ui/button";
 import { Download, Share2 } from "lucide-react";
 import heroImage from "@assets/generated_images/aerial_view_of_modern_sustainable_farm.png";
+import { useAppStore } from "@/lib/store";
+import { FARMS_DATA } from "@/lib/mock-data";
 
 export default function Dashboard() {
+  const { selectedFarmId } = useAppStore();
+  const selectedFarm = FARMS_DATA.find(f => f.id === selectedFarmId) || FARMS_DATA[0];
+
   return (
     <Layout>
       <div className="relative rounded-xl overflow-hidden mb-8 h-48 md:h-64 shadow-xl">
@@ -20,8 +25,11 @@ export default function Dashboard() {
           className="w-full h-full object-cover"
         />
         <div className="absolute bottom-0 left-0 p-6 md:p-8 z-20 text-white">
-          <h2 className="text-3xl md:text-4xl font-bold font-outfit mb-2">Fazenda Boa Vista</h2>
-          <p className="text-white/80 font-mono text-sm md:text-base">Última sincronização: Hoje, 08:30 • Status: Operacional</p>
+          <h2 className="text-3xl md:text-4xl font-bold font-outfit mb-2">{selectedFarm.name}</h2>
+          <p className="text-white/80 font-mono text-sm md:text-base flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            Status: Operacional • {selectedFarm.location} • {selectedFarm.size} ha
+          </p>
         </div>
       </div>
 
