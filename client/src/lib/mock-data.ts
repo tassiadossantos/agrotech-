@@ -1,8 +1,14 @@
-import { Farm } from './store';
+import { Farm, Machine } from './store';
 
 export const CROPS_LIST = [
   "Soja", "Milho", "Café", "Algodão", "Trigo", 
   "Cana-de-açúcar", "Arroz", "Feijão", "Girassol", "Sorgo"
+];
+
+const generateMachinery = (farmId: string): Machine[] => [
+  { id: `m${farmId}-1`, name: 'John Deere 7230J', type: 'tractor', status: 'working', fuelLevel: 78, hours: 4520 },
+  { id: `m${farmId}-2`, name: 'New Holland CR 9.90', type: 'harvester', status: 'idle', fuelLevel: 95, hours: 1200 },
+  { id: `m${farmId}-3`, name: 'Jacto Uniport 3030', type: 'sprayer', status: 'maintenance', fuelLevel: 20, hours: 3100 },
 ];
 
 export const FARMS_DATA: Farm[] = [
@@ -16,7 +22,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c1', name: 'Soja', type: 'summer', progress: 82, plantedDate: 'Out 2024', harvestEstimate: '23 dias', status: 'growing' },
       { id: 'c2', name: 'Milho', type: 'winter', progress: 15, plantedDate: 'Set 2025', harvestEstimate: '120 dias', status: 'planning' }
-    ]
+    ],
+    machinery: generateMachinery('1')
   },
   {
     id: '2',
@@ -28,7 +35,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c3', name: 'Milho', type: 'winter', progress: 45, plantedDate: 'Fev 2025', harvestEstimate: '60 dias', status: 'growing' },
       { id: 'c4', name: 'Sorgo', type: 'winter', progress: 30, plantedDate: 'Mar 2025', harvestEstimate: '75 dias', status: 'growing' }
-    ]
+    ],
+    machinery: generateMachinery('2')
   },
   {
     id: '3',
@@ -40,7 +48,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c5', name: 'Trigo', type: 'winter', progress: 90, plantedDate: 'Mai 2025', harvestEstimate: '10 dias', status: 'harvesting' },
       { id: 'c6', name: 'Feijão', type: 'summer', progress: 10, plantedDate: 'Set 2025', harvestEstimate: '85 dias', status: 'planning' }
-    ]
+    ],
+    machinery: generateMachinery('3')
   },
   {
     id: '4',
@@ -52,7 +61,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c7', name: 'Algodão', type: 'summer', progress: 60, plantedDate: 'Dez 2024', harvestEstimate: '50 dias', status: 'growing' },
       { id: 'c8', name: 'Soja', type: 'summer', progress: 95, plantedDate: 'Out 2024', harvestEstimate: '5 dias', status: 'harvesting' }
-    ]
+    ],
+    machinery: generateMachinery('4')
   },
   {
     id: '5',
@@ -63,7 +73,8 @@ export const FARMS_DATA: Farm[] = [
     finance: { revenue: 1200000, cost: 600000, roi: 50.5 },
     activeCrops: [
       { id: 'c9', name: 'Café', type: 'perennial', progress: 70, plantedDate: 'N/A', harvestEstimate: 'Mai 2026', status: 'growing' }
-    ]
+    ],
+    machinery: generateMachinery('5')
   },
   {
     id: '6',
@@ -75,7 +86,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c10', name: 'Cana-de-açúcar', type: 'perennial', progress: 40, plantedDate: 'N/A', harvestEstimate: 'Ago 2026', status: 'growing' },
       { id: 'c11', name: 'Milho', type: 'winter', progress: 20, plantedDate: 'Jan 2025', harvestEstimate: '100 dias', status: 'growing' }
-    ]
+    ],
+    machinery: generateMachinery('6')
   },
   {
     id: '7',
@@ -87,7 +99,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c12', name: 'Cana-de-açúcar', type: 'perennial', progress: 85, plantedDate: 'N/A', harvestEstimate: '30 dias', status: 'harvesting' },
       { id: 'c13', name: 'Girassol', type: 'summer', progress: 50, plantedDate: 'Nov 2024', harvestEstimate: '45 dias', status: 'growing' }
-    ]
+    ],
+    machinery: generateMachinery('7')
   },
   {
     id: '8',
@@ -99,7 +112,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c14', name: 'Soja', type: 'summer', progress: 75, plantedDate: 'Nov 2024', harvestEstimate: '35 dias', status: 'growing' },
       { id: 'c15', name: 'Arroz', type: 'summer', progress: 65, plantedDate: 'Dez 2024', harvestEstimate: '55 dias', status: 'growing' }
-    ]
+    ],
+    machinery: generateMachinery('8')
   },
   {
     id: '9',
@@ -111,6 +125,7 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c16', name: 'Trigo', type: 'winter', progress: 95, plantedDate: 'Mai 2025', harvestEstimate: '5 dias', status: 'harvesting' },
       { id: 'c17', name: 'Soja', type: 'summer', progress: 5, plantedDate: 'Out 2025', harvestEstimate: '130 dias', status: 'planning' }
-    ]
+    ],
+    machinery: generateMachinery('9')
   }
 ];

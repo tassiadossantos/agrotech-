@@ -10,6 +10,15 @@ export interface Crop {
   status: 'planning' | 'growing' | 'harvesting' | 'completed';
 }
 
+export interface Machine {
+  id: string;
+  name: string;
+  type: 'tractor' | 'harvester' | 'sprayer' | 'truck';
+  status: 'working' | 'maintenance' | 'idle';
+  fuelLevel: number;
+  hours: number;
+}
+
 export interface Farm {
   id: string;
   name: string;
@@ -28,6 +37,7 @@ export interface Farm {
     roi: number;
   };
   activeCrops: Crop[];
+  machinery: Machine[];
 }
 
 interface AppState {
