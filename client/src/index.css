@@ -9,7 +9,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   
-  /* AgroTech Color Palette */
+  /* AgroTech Premium Color Palette */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   
@@ -51,90 +51,98 @@
   --font-mono: 'JetBrains Mono', monospace;
   
   --radius: 0.75rem;
+  
+  --ease-spring: linear(
+    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017,
+    1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%,
+    1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%,
+    0.997 69.8%, 1.003 76.9%, 1.004 83.9%, 1
+  );
 }
 
-/* LIGHT MODE - Nature/Tech Inspired */
+/* PREMIUM LIGHT MODE - Nature/Tech Inspired */
 :root {
-  /* Earthy White/Gray Background */
-  --background: 140 20% 98%; 
+  /* Softer, deeper off-white for less eye strain */
+  --background: 140 15% 97%; 
   --foreground: 144 60% 10%;
 
-  /* Clean White Cards */
+  /* Glassmorphism Cards */
   --card: 0 0% 100%;
   --card-foreground: 144 60% 10%;
 
   --popover: 0 0% 100%;
   --popover-foreground: 144 60% 10%;
 
-  /* Tech Green Primary */
-  --primary: 142 76% 36%; /* Deep vibrant green */
+  /* Tech Green Primary - Vibrant yet professional */
+  --primary: 142 76% 36%; 
   --primary-foreground: 0 0% 100%;
 
-  /* Soil/Earth Secondary */
-  --secondary: 35 30% 92%; /* Light beige/sand */
+  /* Soil/Earth Secondary - Warmer */
+  --secondary: 35 30% 92%;
   --secondary-foreground: 30 40% 25%;
 
-  --muted: 140 10% 94%;
-  --muted-foreground: 140 10% 40%;
+  --muted: 140 10% 92%;
+  --muted-foreground: 140 15% 45%;
 
-  --accent: 142 30% 92%; /* Very light green accent */
+  --accent: 142 30% 94%;
   --accent-foreground: 142 76% 25%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 140 10% 90%;
+  --border: 140 10% 88%;
   --input: 140 10% 90%;
   --ring: 142 76% 36%;
 
-  /* Chart Colors - Nature palette */
+  /* Chart Colors - Vivid Nature */
   --chart-1: 142 76% 36%; /* Primary Green */
-  --chart-2: 32 95% 44%;  /* Orange/Crop */
-  --chart-3: 199 89% 48%; /* Blue/Water */
-  --chart-4: 45 93% 47%;  /* Yellow/Sun */
-  --chart-5: 27 96% 61%;  /* Terracotta */
+  --chart-2: 32 95% 50%;  /* Golden Harvest */
+  --chart-3: 199 89% 48%; /* Water Blue */
+  --chart-4: 45 93% 47%;  /* Sun Yellow */
+  --chart-5: 27 96% 61%;  /* Terra Cotta */
   
   --success: 142 70% 45%;
   --warning: 38 92% 50%;
 }
 
 .dark {
-  --background: 144 30% 8%;
+  /* Deep Jungle Night */
+  --background: 150 30% 6%;
   --foreground: 140 10% 98%;
 
-  --card: 144 30% 12%;
+  --card: 150 25% 10%;
   --card-foreground: 140 10% 98%;
 
-  --popover: 144 30% 12%;
+  --popover: 150 25% 10%;
   --popover-foreground: 140 10% 98%;
 
-  --primary: 142 70% 45%;
+  --primary: 142 60% 55%; /* Lighter green for dark mode contrast */
   --primary-foreground: 144 40% 10%;
 
-  --secondary: 144 20% 18%;
+  --secondary: 144 20% 16%;
   --secondary-foreground: 140 10% 98%;
 
-  --muted: 144 20% 18%;
-  --muted-foreground: 140 10% 60%;
+  --muted: 144 20% 16%;
+  --muted-foreground: 140 15% 65%;
 
-  --accent: 144 20% 18%;
+  --accent: 144 20% 16%;
   --accent-foreground: 140 10% 98%;
 
   --destructive: 0 62% 30%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 144 20% 20%;
-  --input: 144 20% 20%;
-  --ring: 142 70% 45%;
+  --border: 144 20% 18%;
+  --input: 144 20% 18%;
+  --ring: 142 60% 55%;
 
-  --chart-1: 142 70% 50%;
-  --chart-2: 32 80% 55%;
-  --chart-3: 199 80% 55%;
-  --chart-4: 45 90% 55%;
-  --chart-5: 27 90% 65%;
+  --chart-1: 142 70% 60%;
+  --chart-2: 32 80% 65%;
+  --chart-3: 199 80% 65%;
+  --chart-4: 45 90% 65%;
+  --chart-5: 27 90% 75%;
   
-  --success: 142 70% 45%;
-  --warning: 38 92% 50%;
+  --success: 142 70% 55%;
+  --warning: 38 92% 60%;
 }
 
 @layer base {
@@ -142,6 +150,14 @@
     @apply border-border;
   }
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-background text-foreground transition-colors duration-300 selection:bg-primary/20 selection:text-primary;
   }
+}
+
+/* Custom Leaflet Styles */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: transparent;
 }
