@@ -8,7 +8,6 @@ import { FarmMap } from "@/components/dashboard/FarmMap";
 import { AgroChat } from "@/components/chat/AgroChat";
 import { Button } from "@/components/ui/button";
 import { Download, Share2, Sparkles } from "lucide-react";
-import heroImage from "@assets/generated_images/aerial_view_of_modern_sustainable_farm.png";
 import { useAppStore } from "@/lib/store";
 import { FARMS_DATA } from "@/lib/mock-data";
 import { motion } from "framer-motion";
@@ -43,9 +42,13 @@ export default function Dashboard() {
         {/* Header Section with Glassmorphism */}
         <motion.div variants={item} className="relative rounded-2xl overflow-hidden h-[300px] shadow-2xl group">
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent z-10" />
-          <img 
-            src={heroImage} 
-            alt="Fazenda Boa Vista" 
+          <motion.img 
+            key={selectedFarmId}
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            src={selectedFarm.imageUrl} 
+            alt={selectedFarm.name} 
             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
           />
           <div className="absolute top-0 right-0 p-6 z-20">

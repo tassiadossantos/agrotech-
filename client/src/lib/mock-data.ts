@@ -1,4 +1,13 @@
 import { Farm, Machine } from './store';
+import heroImage from "@assets/generated_images/aerial_view_of_modern_sustainable_farm.png";
+import santaHelenaImg from "@assets/generated_images/aerial_view_of_corn_farm_in_goias.png";
+import primaveraImg from "@assets/generated_images/wheat_farm_in_parana.png";
+import rioVerdeImg from "@assets/generated_images/cotton_farm_in_bahia.png";
+import ouroBrancoImg from "@assets/generated_images/coffee_plantation_in_minas_gerais.png";
+import esperancaImg from "@assets/generated_images/sugarcane_farm_in_mato_grosso_do_sul.png";
+import valeSolImg from "@assets/generated_images/sunflower_farm_in_sao_paulo.png";
+import novaAuroraImg from "@assets/generated_images/soybean_and_rice_farm_in_tocantins.png";
+import terraPrometidaImg from "@assets/generated_images/wheat_and_soy_farm_in_rio_grande_do_sul.png";
 
 export const CROPS_LIST = [
   "Soja", "Milho", "Café", "Algodão", "Trigo", 
@@ -23,7 +32,8 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c1', name: 'Soja', type: 'summer', progress: 82, plantedDate: 'Out 2024', harvestEstimate: '23 dias', status: 'growing' },
       { id: 'c2', name: 'Milho', type: 'winter', progress: 15, plantedDate: 'Set 2025', harvestEstimate: '120 dias', status: 'planning' }
     ],
-    machinery: generateMachinery('1')
+    machinery: generateMachinery('1'),
+    imageUrl: heroImage
   },
   {
     id: '2',
@@ -36,7 +46,8 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c3', name: 'Milho', type: 'winter', progress: 45, plantedDate: 'Fev 2025', harvestEstimate: '60 dias', status: 'growing' },
       { id: 'c4', name: 'Sorgo', type: 'winter', progress: 30, plantedDate: 'Mar 2025', harvestEstimate: '75 dias', status: 'growing' }
     ],
-    machinery: generateMachinery('2')
+    machinery: generateMachinery('2'),
+    imageUrl: santaHelenaImg
   },
   {
     id: '3',
@@ -49,7 +60,8 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c5', name: 'Trigo', type: 'winter', progress: 90, plantedDate: 'Mai 2025', harvestEstimate: '10 dias', status: 'harvesting' },
       { id: 'c6', name: 'Feijão', type: 'summer', progress: 10, plantedDate: 'Set 2025', harvestEstimate: '85 dias', status: 'planning' }
     ],
-    machinery: generateMachinery('3')
+    machinery: generateMachinery('3'),
+    imageUrl: primaveraImg
   },
   {
     id: '4',
@@ -62,7 +74,8 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c7', name: 'Algodão', type: 'summer', progress: 60, plantedDate: 'Dez 2024', harvestEstimate: '50 dias', status: 'growing' },
       { id: 'c8', name: 'Soja', type: 'summer', progress: 95, plantedDate: 'Out 2024', harvestEstimate: '5 dias', status: 'harvesting' }
     ],
-    machinery: generateMachinery('4')
+    machinery: generateMachinery('4'),
+    imageUrl: rioVerdeImg
   },
   {
     id: '5',
@@ -74,7 +87,8 @@ export const FARMS_DATA: Farm[] = [
     activeCrops: [
       { id: 'c9', name: 'Café', type: 'perennial', progress: 70, plantedDate: 'N/A', harvestEstimate: 'Mai 2026', status: 'growing' }
     ],
-    machinery: generateMachinery('5')
+    machinery: generateMachinery('5'),
+    imageUrl: ouroBrancoImg
   },
   {
     id: '6',
@@ -87,7 +101,8 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c10', name: 'Cana-de-açúcar', type: 'perennial', progress: 40, plantedDate: 'N/A', harvestEstimate: 'Ago 2026', status: 'growing' },
       { id: 'c11', name: 'Milho', type: 'winter', progress: 20, plantedDate: 'Jan 2025', harvestEstimate: '100 dias', status: 'growing' }
     ],
-    machinery: generateMachinery('6')
+    machinery: generateMachinery('6'),
+    imageUrl: esperancaImg
   },
   {
     id: '7',
@@ -100,7 +115,8 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c12', name: 'Cana-de-açúcar', type: 'perennial', progress: 85, plantedDate: 'N/A', harvestEstimate: '30 dias', status: 'harvesting' },
       { id: 'c13', name: 'Girassol', type: 'summer', progress: 50, plantedDate: 'Nov 2024', harvestEstimate: '45 dias', status: 'growing' }
     ],
-    machinery: generateMachinery('7')
+    machinery: generateMachinery('7'),
+    imageUrl: valeSolImg
   },
   {
     id: '8',
@@ -113,7 +129,8 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c14', name: 'Soja', type: 'summer', progress: 75, plantedDate: 'Nov 2024', harvestEstimate: '35 dias', status: 'growing' },
       { id: 'c15', name: 'Arroz', type: 'summer', progress: 65, plantedDate: 'Dez 2024', harvestEstimate: '55 dias', status: 'growing' }
     ],
-    machinery: generateMachinery('8')
+    machinery: generateMachinery('8'),
+    imageUrl: novaAuroraImg
   },
   {
     id: '9',
@@ -126,6 +143,7 @@ export const FARMS_DATA: Farm[] = [
       { id: 'c16', name: 'Trigo', type: 'winter', progress: 95, plantedDate: 'Mai 2025', harvestEstimate: '5 dias', status: 'harvesting' },
       { id: 'c17', name: 'Soja', type: 'summer', progress: 5, plantedDate: 'Out 2025', harvestEstimate: '130 dias', status: 'planning' }
     ],
-    machinery: generateMachinery('9')
+    machinery: generateMachinery('9'),
+    imageUrl: terraPrometidaImg
   }
 ];

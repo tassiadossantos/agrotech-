@@ -38,6 +38,7 @@ export interface Farm {
   };
   activeCrops: Crop[];
   machinery: Machine[];
+  imageUrl?: string;
 }
 
 interface AppState {
