@@ -8,6 +8,9 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
+<img width="1919" height="873" alt="Captura de tela 2025-12-12 204120" src="https://github.com/user-attachments/assets/688716a3-9fe3-46af-acd6-2ede4c247692" />
+
+
 ## 📋 Índice
 
 - [Sobre](#-sobre)
