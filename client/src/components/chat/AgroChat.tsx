@@ -1,59 +1,89 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MessageSquare, X, Send, Sparkles, Bot } from "lucide-react";
+import { MessageSquare, X, Send, Bot, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { sendChatMessage, type ChatContext, type ChatMessage as ApiChatMessage } from "@/lib/api";
+import { useAppStore } from "@/lib/store";
+import { FARMS_DATA } from "@/lib/mock-data";
 
 interface Message {
   id: number;
   role: 'user' | 'assistant';
-  content: string | React.ReactNode;
+  content: string;
 }
 
 export function AgroChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { 
       id: 1, 
       role: 'assistant', 
-      content: "Olá, produtor! Sou sua IA Agrícola. Identifiquei uma oportunidade de plantio para o Talhão A baseada na previsão de chuvas. Gostaria de ver?" 
+      content: "Olá, produtor! 🌱 Sou o AgroGPT, sua IA Agrícola. Posso ajudar com análises de clima, cotações de mercado, recomendações de plantio e muito mais. Como posso ajudar?" 
     }
   ]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { selectedFarmId } = useAppStore();
+  const selectedFarm = FARMS_DATA.find(f => f.id === selectedFarmId) || FARMS_DATA[0];
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
     
-    const userMsg: Message = { id: Date.now(), role: 'user', content: input };
+    const userMessage = input.trim();
+    const userMsg: Message = { id: Date.now(), role: 'user', content: userMessage };
     setMessages(prev => [...prev, userMsg]);
     setInput("");
+    setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Build context from current farm data
+      const context: ChatContext = {
+        farmName: selectedFarm.name,
+        farmLocation: selectedFarm.location,
+        activeCrops: selectedFarm.activeCrops.map(c => c.name),
+        weather: {
+          temp: selectedFarm.weather.temp,
+          condition: selectedFarm.weather.condition,
+          humidity: selectedFarm.weather.humidity,
+        },
+      };
+
+      // Build history from previous messages (last 10)
+      const history: ApiChatMessage[] = messages.slice(-10).map(m => ({
+        role: m.role,
+        content: m.content,
+      }));
+
+      const response = await sendChatMessage(userMessage, context, history);
+      
       const aiMsg: Message = { 
         id: Date.now() + 1, 
         role: 'assistant', 
-        content: (
-          <div className="space-y-2">
-            <p>Analisando dados do mercado e clima...</p>
-            <div className="bg-primary/10 p-3 rounded-lg border border-primary/20 mt-2">
-              <h4 className="font-bold flex items-center gap-2 text-primary text-sm">
-                <Sparkles className="w-4 h-4" /> Recomendação: PLANTAR
-              </h4>
-              <ul className="text-xs mt-2 space-y-1 text-foreground/80 list-disc list-inside">
-                <li>Janela de 18 a 25 de Outubro</li>
-                <li>Previsão de La Niña fraca</li>
-                <li>Lucro est. +R$ 4.200/ha</li>
-              </ul>
-            </div>
-          </div>
-        )
+        content: response.content
       };
       setMessages(prev => [...prev, aiMsg]);
-    }, 1500);
+    } catch (error) {
+      console.error("Chat error:", error);
+      const errorMsg: Message = {
+        id: Date.now() + 1,
+        role: 'assistant',
+        content: "Desculpe, houve um erro ao processar sua mensagem. Por favor, tente novamente."
+      };
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -76,7 +106,7 @@ export function AgroChat() {
                     <h3 className="font-bold font-outfit">AgroGPT</h3>
                     <p className="text-xs opacity-80 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                      Online
+                      {selectedFarm.name}
                     </p>
                   </div>
                 </div>
@@ -85,7 +115,7 @@ export function AgroChat() {
                 </Button>
               </div>
 
-              <ScrollArea className="flex-1 p-4 bg-background">
+              <ScrollArea className="flex-1 p-4 bg-background" ref={scrollRef}>
                 <div className="space-y-4">
                   {messages.map((msg) => (
                     <div
@@ -93,7 +123,7 @@ export function AgroChat() {
                       className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-[85%] rounded-2xl p-3 text-sm ${
+                        className={`max-w-[85%] rounded-2xl p-3 text-sm whitespace-pre-wrap ${
                           msg.role === 'user'
                             ? 'bg-primary text-primary-foreground rounded-tr-none'
                             : 'bg-muted text-foreground rounded-tl-none'
@@ -103,6 +133,13 @@ export function AgroChat() {
                       </div>
                     </div>
                   ))}
+                  {isLoading && (
+                    <div className="flex justify-start">
+                      <div className="bg-muted text-foreground rounded-2xl rounded-tl-none p-3 text-sm">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </ScrollArea>
 
@@ -112,11 +149,12 @@ export function AgroChat() {
                     placeholder="Faça uma pergunta..." 
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
                     className="flex-1"
+                    disabled={isLoading}
                   />
-                  <Button size="icon" onClick={handleSend} disabled={!input.trim()}>
-                    <Send className="w-4 h-4" />
+                  <Button size="icon" onClick={handleSend} disabled={!input.trim() || isLoading}>
+                    {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   </Button>
                 </div>
               </div>
